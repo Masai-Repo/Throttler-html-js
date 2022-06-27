@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Throttler</title>
+    <style>
+      body {
+        background-color: darkkhaki;
+      }
+      .maindiv {
+        height: 300px;
+        width: 600px;
+        margin: auto;
+        text-align: center;
+        background-color: teal;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="maindiv">
+      <h1>Throttle Javascript</h1>
+      <button id="throttle">Click Me</button>
+    </div>
+  </body>
+</html>
+<script>
+  const btn = document.querySelector("#throttle");
+  const throttleFunction = (func, delay) => {
+    let prev = 0;
+    return (...args) => {
+      let now = new Date().getTime();
+
+      console.log(now - prev, delay);
+
+      if (now - prev > delay) {
+        prev = now;
+        return func(...args);
+      }
+    };
+  };
+  btn.addEventListener(
+    "click",
+    throttleFunction(() => {
+      console.log("button is clicked");
+      alert("Button clicked");
+    }, 3500)
+  );
+</script>
